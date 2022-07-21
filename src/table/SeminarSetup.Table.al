@@ -15,7 +15,7 @@ table 70400 "Seminar Setup"
             DataClassification = ToBeClassified;
 
         }
-        field(3; "Seminar Registiration Nos."; Code[10])
+        field(3; "Seminar Registration Nos."; Code[10])
         {
             TableRelation = "No. Series";
             DataClassification = ToBeClassified;

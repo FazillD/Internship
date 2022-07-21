@@ -8,12 +8,13 @@
             "environmentType": "Sandbox",
             "environmentName": "Demircan",
             "tenant": "d4d8c0fd-de15-4712-9dec-9069f729270d",
-            "startupObjectId": 70600,
+            "startupObjectId": 71100,
             "startupObjectType": "Page",
             "breakOnError": true,
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
-            "enableSqlInformationDebugger": true
+            "enableSqlInformationDebugger": true,
+            "schemaUpdateMode": "ForceSync"
         }
     ]
 }
