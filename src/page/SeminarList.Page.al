@@ -34,7 +34,7 @@ page 70800 "Seminar List"
                 {
                     ApplicationArea = all;
                 }
-                field("Seminer Price"; Rec."Seminer Price")
+                field("Seminar Price"; Rec."Seminar Price")
                 {
                     ApplicationArea = all;
                 }

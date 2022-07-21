@@ -16,7 +16,7 @@ page 70600 "Seminer Setup"
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar Registiration Nos."; Rec."Seminar Registiration Nos.")
+                field("Seminar Registiration Nos."; Rec."Seminar Registration Nos.")
                 {
                     ApplicationArea = All;
                 }

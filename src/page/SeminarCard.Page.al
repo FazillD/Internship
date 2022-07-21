@@ -60,7 +60,7 @@ page 70700 "Seminar Card"
                 {
                     ApplicationArea = all;
                 }
-                field("Seminer Price"; Rec."Seminer Price")
+                field("Seminar Price"; Rec."Seminar Price")
                 {
                     ApplicationArea = all;
                 }

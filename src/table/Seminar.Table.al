@@ -63,7 +63,7 @@ table 70500 "Seminar"
             )
             );
         }
-        field(10; "Seminer Price"; Decimal)
+        field(10; "Seminar Price"; Decimal)
         {
             AutoFormatType = 1;
             DataClassification = ToBeClassified;
