@@ -14,15 +14,15 @@ page 71000 "Seminar Comment Sheet"
         {
             repeater(GroupName)
             {
-                field("Date"; Date)
+                field("Date"; Rec.Date)
                 {
                     ApplicationArea = All;
                 }
-                field(Comment; Comment)
+                field(Comment; Rec.Comment)
                 {
                     ApplicationArea = all;
                 }
-                field("Code"; Code)
+                field("Code"; Rec.Code)
                 {
                     Visible = false;
                     ApplicationArea = all;

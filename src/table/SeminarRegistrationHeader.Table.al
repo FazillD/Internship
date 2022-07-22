@@ -69,7 +69,7 @@ table 74000 "Seminar Registration Header"
         }
         field(5; "Instructor Resource No."; Code[20])
         {
-            Caption = 'Instructor No.';
+            Caption = 'Instructor Resource No.';
             TableRelation = Resource WHERE(Type = CONST(Person));
 
         }
@@ -113,7 +113,7 @@ table 74000 "Seminar Registration Header"
         }
         field(13; "Room Resource No."; Code[20])
         {
-            Caption = 'Room No.';
+            Caption = 'Room Resource No.';
             TableRelation = Resource WHERE(Type = CONST(Machine));
             trigger OnValidate()
             begin
@@ -311,7 +311,7 @@ table 74000 "Seminar Registration Header"
         PostCode: Record "Post Code";
         Seminar: Record Seminar;
         SeminarCommentLine: Record "Seminar Comment Line";
-        SeminarCharge: Record "Seminar Charge";
+        SeminarCharges: Record "Seminar Charges";
         SeminarRegHeader: Record "Seminar Registration Header";
         SeminarRegLine: Record "Seminar Registration Line";
         SeminarRoom: Record Resource;
@@ -352,10 +352,10 @@ table 74000 "Seminar Registration Header"
               TRUE);
         SeminarRegLine.SETRANGE(Registered);
         SeminarRegLine.DELETEALL(TRUE);
-        SeminarCharge.RESET;
-        SeminarCharge.SETRANGE("Document No.", "No.");
-        IF NOT SeminarCharge.ISEMPTY THEN
-            ERROR(Text006, SeminarCharge.TABLECAPTION);
+        SeminarCharges.RESET;
+        SeminarCharges.SETRANGE("Document No.", "No.");
+        IF NOT SeminarCharges.ISEMPTY THEN
+            ERROR(Text006, SeminarCharges.TABLECAPTION);
         SeminarCommentLine.RESET;
         SeminarCommentLine.SETRANGE("Document Type", SeminarCommentLine."Document Type"::"Seminar Registration");
         SeminarCommentLine.SETRANGE("No.", "No.");
@@ -369,17 +369,15 @@ table 74000 "Seminar Registration Header"
 
     PROCEDURE AssistEdit(OldSeminarRegHeader: Record "Seminar Registration Header"): Boolean;
     BEGIN
-        WITH SeminarRegHeader DO BEGIN
-            SeminarRegHeader := Rec;
+        SeminarRegHeader := Rec;
+        SeminarSetup.GET;
+        SeminarSetup.TESTFIELD("Seminar Registration Nos.");
+        IF NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Registration Nos.", OldSeminarRegHeader."No. Series", SeminarRegHeader."No. Series") THEN BEGIN
             SeminarSetup.GET;
             SeminarSetup.TESTFIELD("Seminar Registration Nos.");
-            IF NoSeriesMgt.SelectSeries(SeminarSetup."Seminar Registration Nos.", OldSeminarRegHeader."No. Series", "No. Series") THEN BEGIN
-                SeminarSetup.GET;
-                SeminarSetup.TESTFIELD("Seminar Registration Nos.");
-                NoSeriesMgt.SetSeries("No.");
-                Rec := SeminarRegHeader;
-                EXIT(TRUE);
-            END;
+            NoSeriesMgt.SetSeries(SeminarRegHeader."No.");
+            Rec := SeminarRegHeader;
+            EXIT(TRUE);
         END;
     END;
 
