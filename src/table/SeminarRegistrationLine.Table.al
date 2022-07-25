@@ -85,7 +85,7 @@ table 50166 "Seminar Registration Line"
             end;
 
         }
-        field(5; "Participant Name"; Text[50])
+        field(5; "Participant Name"; Text[100])
         {
             Caption = 'Participant Name';
             FieldClass = FlowField;
