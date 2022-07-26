@@ -13,7 +13,7 @@ tableextension 70000 "Resource" extends "Resource"
         {
             Caption = 'Maximum Participants';
         }
-        field(1246; "Quentity Per Day"; Decimal)
+        field(1246; "Quantity Per Day"; Decimal)
         {
             Caption = 'Quentity Per Day';
         }
