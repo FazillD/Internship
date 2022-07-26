@@ -8,7 +8,7 @@ pageextension 70100 "ResourceCard" extends "Resource Card"
             {
                 ApplicationArea = All;
             }
-            field("Quentity Per Day"; Rec."Quentity Per Day")
+            field("Quantity Per Day"; Rec."Quantity Per Day")
             {
                 ApplicationArea = All;
             }
