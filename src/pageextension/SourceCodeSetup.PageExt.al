@@ -9,6 +9,7 @@ pageextension 71110 "SourceCodeSetup" extends "Source Code Setup"
                 field(Seminar; Rec.Seminar)
                 {
                     Caption = 'Seminar';
+                    ApplicationArea = All;
                 }
             }
         }
