@@ -100,10 +100,12 @@ page 71130 "Seminar Ledger Entries"
         {
             systempart(Links; Links)
             {
+                ApplicationArea = All;
 
             }
             systempart(Note; Notes)
             {
+                ApplicationArea = All;
 
             }
         }
