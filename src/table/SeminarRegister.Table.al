@@ -1,4 +1,4 @@
-table 50183 "Seminar Register"
+table 72200 "Seminar Register"
 {
     DataClassification = ToBeClassified;
 
