@@ -169,14 +169,30 @@ page 73000 "Seminar Registration"
     {
         area(Processing)
         {
-            action(ActionName)
+            action("Co&mments")
+            {
+                CaptionML = ENU = 'Comments';
+                ApplicationArea = All;
+                RunObject = page "Seminar Comment Sheet";
+                //RunPageView = where("No." = const(0));
+                //RunPageLink = 
+                Image = Comment;
+            }
+            action("&Charges")
+            {
+                CaptionML = ENU = 'Charges';
+                ApplicationArea = All;
+                Image = Costs;
+            }
+            action("P&ost")
             {
                 ApplicationArea = All;
-
-                trigger OnAction()
-                begin
-
-                end;
+                Caption = 'Post';
+                Image = PostDocument;
+                Promoted = true;
+                PromotedCategory = Process;
+                ShortcutKey = F9;
+                RunObject = codeunit "Seminar-Post (Yes/No)";
             }
         }
     }
