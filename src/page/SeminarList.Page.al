@@ -45,6 +45,49 @@ page 70800 "Seminar List"
 
     actions
     {
+        area(Creation)
+        {
+            group(Seminar)
+            {
+                action("Seminar Registration")
+                {
+                    Caption = 'Seminar Registration';
+                    RunPageMode = Create;
+                    Image = NewTimesheet;
+                    Promoted = true;
+                    PromotedCategory = New;
+                    PromotedIsBig = true;
+                    RunObject = page "Seminar Registration";
+                    RunPageLink = "Seminar No." = field("No.");
+                    ApplicationArea = All;
+                }
+            }
+            action("Ledger Entries")
+            {
+                Caption = 'Ledger Entries';
+                Image = WarrantyLedger;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ShortcutKey = "Ctrl+F7";
+                RunObject = page "Seminar Ledger Entries";
+                RunPageLink = "Seminar No." = field("No.");
+                ApplicationArea = All;
+            }
+            group("&Registration")
+            {
+                action(Registration)
+                {
+                    Image = Timesheet;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    RunObject = page "Seminar Registration List";
+                    RunPageLink = "Seminar No." = field("No.");
+                    ApplicationArea = All;
+                }
+            }
+
+        }
         area(Processing)
         {
             action("Co&mments")
