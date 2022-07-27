@@ -1,5 +1,7 @@
 page 75000 "Seminar Registration List"
 {
+    ApplicationArea = All;
+    UsageCategory = Lists;
     Editable = false;
     CaptionML = ENU = 'Seminar Registration List';
     SourceTable = "Seminar Registration Header";
@@ -87,6 +89,16 @@ page 75000 "Seminar Registration List"
                 CaptionML = ENU = 'Charges';
                 ApplicationArea = All;
                 Image = Costs;
+            }
+            action("P&ost")
+            {
+                ApplicationArea = All;
+                Caption = 'Post';
+                Image = PostDocument;
+                Promoted = true;
+                PromotedCategory = Process;
+                ShortcutKey = F9;
+                RunObject = codeunit "Seminar-Post (Yes/No)";
             }
         }
     }
