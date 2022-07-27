@@ -70,6 +70,52 @@ page 70700 "Seminar Card"
 
     actions
     {
+
+        area(Creation)
+        {
+            group("&Seminar")
+            {
+                action("Seminar Registration")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Seminar Registration';
+                    RunPageMode = Create;
+                    Image = NewTimesheet;
+                    Promoted = true;
+                    PromotedCategory = New;
+                    PromotedIsBig = true;
+                    RunObject = page "Seminar Registration";
+                    RunPageLink = "Seminar No." = field("No.");
+                }
+            }
+
+
+            action("Ledger Entries")
+            {
+                ApplicationArea = All;
+                Caption = 'Ledger Entries';
+                Image = WarrantyLedger;
+                Promoted = true;
+                PromotedCategory = Process;
+                PromotedIsBig = true;
+                ShortcutKey = "Ctrl+F7";
+                RunObject = page "Seminar Ledger Entries";
+                RunPageLink = "Seminar No." = field("No.");
+            }
+            group("&Registration")
+            {
+                action(Registration)
+                {
+                    ApplicationArea = All;
+                    Image = Timesheet;
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    RunObject = page "Seminar Registration List";
+                    RunPageLink = "Seminar No." = field("No.");
+                }
+            }
+
+        }
         area(Processing)
         {
             action("Co&mments")
