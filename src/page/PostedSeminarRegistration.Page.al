@@ -5,7 +5,7 @@ page 73010 "Posted Seminar Registration"
     UsageCategory = Administration;
     SourceTable = "Posted Seminar Reg. Header";
     Editable = false;
-    CaptionML = ENU = 'Seminar Registration';
+    CaptionML = ENU = 'Posted Seminar Registration';
 
     layout
     {
@@ -13,106 +13,106 @@ page 73010 "Posted Seminar Registration"
         {
             group(GroupName)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Starting Date"; "Starting Date")
+                field("Starting Date"; Rec."Starting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar No"; "Seminar No.")
+                field("Seminar No"; Rec."Seminar No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar Name"; "Seminar Name")
+                field("Seminar Name"; Rec."Seminar Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Instructor Resource No."; "Instructor Resource No.")
+                field("Instructor Resource No."; Rec."Instructor Resource No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Instructor Name"; "Instructor Name")
+                field("Instructor Name"; Rec."Instructor Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Posting Date"; "Posting Date")
+                field("Posting Date"; Rec."Posting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Document Date"; "Document Date")
+                field("Document Date"; Rec."Document Date")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field(Duration; Duration)
+                field(Duration; Rec.Duration)
                 {
                     ApplicationArea = All;
                 }
-                field("Minimum Participants"; "Minimum Participants")
+                field("Minimum Participants"; Rec."Minimum Participants")
                 {
                     ApplicationArea = All;
                 }
-                field("Maximum Participants"; "Maximum Participants")
+                field("Maximum Participants"; Rec."Maximum Participants")
                 {
                     ApplicationArea = All;
                 }
             }
-            part("Seminar Registration Lines"; "Seminar Registration Subform")
+            part("Posted Seminar Registration Lines"; "Posted Seminar Reg. Subform")
             {
-                SubPageLink = "Bill-to Customer No." = field("No.");
+                SubPageLink = "Document No." = field("No.");
                 ApplicationArea = All;
             }
             group("Seminar Room")
             {
-                field("Room Resource No."; "Room Resource No.")
+                field("Room Resource No."; Rec."Room Resource No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Room Name"; "Room Name")
+                field("Room Name"; Rec."Room Name")
                 {
                     ApplicationArea = All;
                 }
-                field("Room Address"; "Room Address")
+                field("Room Address"; Rec."Room Address")
                 {
                     ApplicationArea = All;
                 }
-                field("Room Address 2"; "Room Address 2")
+                field("Room Address 2"; Rec."Room Address 2")
                 {
                     ApplicationArea = All;
                 }
-                field("Room Post Code"; "Room Post Code")
+                field("Room Post Code"; Rec."Room Post Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Room City"; "Room City")
+                field("Room City"; Rec."Room City")
                 {
                     ApplicationArea = All;
                 }
-                field("Room Country/Reg. Code"; "Room Country/Reg. Code")
+                field("Room Country/Reg. Code"; Rec."Room Country/Reg. Code")
                 {
                     ApplicationArea = All;
                 }
-                field("Room County"; "Room County")
+                field("Room County"; Rec."Room County")
                 {
                     ApplicationArea = All;
                 }
             }
             group(Invoicing)
             {
-                field("Gen. Prod. Posting Group"; "Gen. Prod. Posting Group")
+                field("Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group")
                 {
                     ApplicationArea = All;
                 }
-                field("VAT Prod. Posting Group"; "VAT Prod. Posting Group")
+                field("VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group")
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar Price"; "Seminar Price")
+                field("Seminar Price"; Rec."Seminar Price")
                 {
                     ApplicationArea = All;
                 }

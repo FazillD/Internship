@@ -14,51 +14,51 @@ page 74010 "Posted Seminar Reg. Subform"
         {
             repeater(GroupName)
             {
-                field("Bill-to Customer No."; "Bill-to Customer No.")
+                field("Bill-to Customer No."; Rec."Bill-to Customer No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Participant Contact No."; "Participant Contact No.")
+                field("Participant Contact No."; Rec."Participant Contact No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Participant Name"; "Participant Name")
+                field("Participant Name"; Rec."Participant Name")
                 {
                     ApplicationArea = All;
                 }
-                field(Participated; Participated)
+                field(Participated; Rec.Participated)
                 {
                     ApplicationArea = All;
                 }
-                field("Registration Date"; "Registration Date")
+                field("Registration Date"; Rec."Registration Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Confirmation Date"; "Confirmation Date")
+                field("Confirmation Date"; Rec."Confirmation Date")
                 {
                     ApplicationArea = All;
                 }
-                field("To Invoice"; "To Invoice")
+                field("To Invoice"; Rec."To Invoice")
                 {
                     ApplicationArea = All;
                 }
-                field(Registered; Registered)
+                field(Registered; Rec.Registered)
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar Price"; "Seminar Price")
+                field("Seminar Price"; Rec."Seminar Price")
                 {
                     ApplicationArea = All;
                 }
-                field("Line Discount %"; "Line Discount %")
+                field("Line Discount %"; Rec."Line Discount %")
                 {
                     ApplicationArea = All;
                 }
-                field("Line Discount Amount"; "Line Discount Amount")
+                field("Line Discount Amount"; Rec."Line Discount Amount")
                 {
                     ApplicationArea = All;
                 }
-                field(Amount; Amount)
+                field(Amount; Rec.Amount)
                 {
                     ApplicationArea = All;
                 }

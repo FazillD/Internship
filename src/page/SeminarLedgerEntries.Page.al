@@ -11,7 +11,7 @@ page 71130 "Seminar Ledger Entries"
     {
         area(Content)
         {
-            group(GroupName)
+            repeater(GroupName)
             {
                 field("Posting Date"; Rec."Posting Date")
                 {
@@ -106,7 +106,6 @@ page 71130 "Seminar Ledger Entries"
             systempart(Note; Notes)
             {
                 ApplicationArea = All;
-
             }
         }
     }

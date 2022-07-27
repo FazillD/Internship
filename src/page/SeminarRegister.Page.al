@@ -4,7 +4,7 @@ page 72100 "Seminar Register"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = "Seminar Register";
-    Editable = false;
+    Editable = true;
     Caption = 'Seminar Register';
     layout
     {
@@ -12,37 +12,37 @@ page 72100 "Seminar Register"
         {
             group(GroupName)
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Creation Date"; "Creation Date")
+                field("Creation Date"; Rec."Creation Date")
                 {
                     ApplicationArea = All;
 
                 }
-                field("User ID"; "User ID")
+                field("User ID"; Rec."User ID")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Source Code"; "Source Code")
+                field("Source Code"; Rec."Source Code")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Journal Batch Name"; "Journal Batch Name")
+                field("Journal Batch Name"; Rec."Journal Batch Name")
                 {
                     ApplicationArea = All;
 
                 }
-                field("From Entry No."; "From Entry No.")
+                field("From Entry No."; Rec."From Entry No.")
                 {
                     ApplicationArea = All;
 
                 }
-                field("To Entry No."; "To Entry No.")
+                field("To Entry No."; Rec."To Entry No.")
                 {
                     ApplicationArea = All;
 

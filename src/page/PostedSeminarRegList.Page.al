@@ -5,7 +5,8 @@ page 71320 "Posted Seminar Reg. List"
     UsageCategory = Administration;
     SourceTable = "Posted Seminar Reg. Header";
     CardPageId = "Posted Seminar Registration";
-    CaptionML = ENU = 'Seminar Registration List';
+    CaptionML = ENU = 'Posted Seminar Registration List';
+    Editable = false;
 
     layout
     {
@@ -13,35 +14,35 @@ page 71320 "Posted Seminar Reg. List"
         {
             repeater("Group")
             {
-                field("No."; "No.")
+                field("No."; Rec."No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Starting Date"; "Starting Date")
+                field("Starting Date"; Rec."Starting Date")
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar No."; "Seminar No.")
+                field("Seminar No."; Rec."Seminar No.")
                 {
                     ApplicationArea = All;
                 }
-                field("Seminar Name"; "Seminar Name")
+                field("Seminar Name"; Rec."Seminar Name")
                 {
                     ApplicationArea = All;
                 }
-                field(Status; Status)
+                field(Status; Rec.Status)
                 {
                     ApplicationArea = All;
                 }
-                field("Duration"; "Duration")
+                field("Duration"; Rec."Duration")
                 {
                     ApplicationArea = All;
                 }
-                field("Maximum Participants"; "Maximum Participants")
+                field("Maximum Participants"; Rec."Maximum Participants")
                 {
                     ApplicationArea = All;
                 }
-                field("Room Resource No."; "Room Resource No.")
+                field("Room Resource No."; Rec."Room Resource No.")
                 {
                     ApplicationArea = All;
                 }

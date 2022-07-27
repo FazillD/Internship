@@ -86,7 +86,6 @@ table 71130 "Seminar Ledger Entry"
         field(16; "Participant Name"; Text[50])
         {
             DataClassification = CustomerContent;
-
         }
         field(17; "Chargeable"; Boolean)
         {

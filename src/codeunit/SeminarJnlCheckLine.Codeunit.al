@@ -12,47 +12,43 @@ codeunit 71100 "Seminar Jnl.-Check Line"
 
     procedure RunCheck(var SemJnlLine: Record "Seminar Journal Line")
     begin
-        WITH SemJnlLine DO begin
-            IF EmptyLine THEN
-                EXIT;
-            TESTFIELD("Posting Date");
-            TESTFIELD("Instructor Resource No.");
-            TESTFIELD("Seminar No.");
-            CASE "Charge Type" OF
-                "Charge Type"::Instructor:
-                    TESTFIELD("Instructor Resource No.");
-                "Charge Type"::Room:
-                    TESTFIELD("Room Resource No.");
-                "Charge Type"::Participant:
-                    TESTFIELD("Participant Contact No.");
-            END;
-            IF Chargeable THEN
-                TESTFIELD("Bill-to Customer No.");
-            IF "Posting Date" = CLOSINGDATE("Posting Date") THEN
-                FIELDERROR("Posting Date", Text000);
-            IF (AllowPostingFrom = 0D) AND (AllowPostingTo = 0D) THEN BEGIN
-                IF USERID <> '' THEN
-                    IF UserSetup.GET(USERID) THEN BEGIN
-                        AllowPostingFrom := UserSetup."Allow Posting From";
-                        AllowPostingTo := UserSetup."Allow Posting To";
-                    END;
-                IF (AllowPostingFrom = 0D) AND (AllowPostingTo = 0D) THEN BEGIN
-                    GLSetup.GET;
-                    AllowPostingFrom := GLSetup."Allow Posting From";
-                    AllowPostingTo := GLSetup."Allow Posting To";
+        IF SemJnlLine.EmptyLine THEN
+            EXIT;
+        SemJnlLine.TESTFIELD("Posting Date");
+        SemJnlLine.TESTFIELD("Instructor Resource No.");
+        SemJnlLine.TESTFIELD("Seminar No.");
+        CASE SemJnlLine."Charge Type" OF
+            SemJnlLine."Charge Type"::Instructor:
+                SemJnlLine.TESTFIELD("Instructor Resource No.");
+            SemJnlLine."Charge Type"::Room:
+                SemJnlLine.TESTFIELD("Room Resource No.");
+            SemJnlLine."Charge Type"::Participant:
+                SemJnlLine.TESTFIELD("Participant Contact No.");
+        END;
+        IF SemJnlLine.Chargeable THEN
+            SemJnlLine.TESTFIELD("Bill-to Customer No.");
+        IF SemJnlLine."Posting Date" = CLOSINGDATE(SemJnlLine."Posting Date") THEN
+            SemJnlLine.FIELDERROR("Posting Date", Text000);
+        IF (AllowPostingFrom = 0D) AND (AllowPostingTo = 0D) THEN BEGIN
+            IF USERID <> '' THEN
+                IF UserSetup.GET(USERID) THEN BEGIN
+                    AllowPostingFrom := UserSetup."Allow Posting From";
+                    AllowPostingTo := UserSetup."Allow Posting To";
                 END;
-                IF AllowPostingTo = 0D THEN
-                    AllowPostingTo := 99991231D;
+            IF (AllowPostingFrom = 0D) AND (AllowPostingTo = 0D) THEN BEGIN
+                GLSetup.GET;
+                AllowPostingFrom := GLSetup."Allow Posting From";
+                AllowPostingTo := GLSetup."Allow Posting To";
             END;
-            IF ("Posting Date" < AllowPostingFrom) OR ("Posting Date" > AllowPostingTo)
-            THEN
-                FIELDERROR("Posting Date", Text001);
-            IF ("Document Date" <> 0D) THEN
-                IF ("Document Date" = CLOSINGDATE("Document Date")) THEN
-                    FIELDERROR("Document Date", Text000);
-
-
-        end;
+            IF AllowPostingTo = 0D THEN
+                AllowPostingTo := 99991231D;
+        END;
+        IF (SemJnlLine."Posting Date" < AllowPostingFrom) OR (SemJnlLine."Posting Date" > AllowPostingTo)
+        THEN
+            SemJnlLine.FIELDERROR("Posting Date", Text001);
+        IF (SemJnlLine."Document Date" <> 0D) THEN
+            IF (SemJnlLine."Document Date" = CLOSINGDATE(SemJnlLine."Document Date")) THEN
+                SemJnlLine.FIELDERROR("Document Date", Text000);
 
     end;
 

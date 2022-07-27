@@ -4,11 +4,11 @@ pageextension 76030 "ResourceLedgerEntries" extends "Resource Ledger Entries"
     {
         addbefore("Job No.")
         {
-            field("Seminar No."; "Seminar No.")
+            field("Seminar No."; Rec."Seminar No.")
             {
                 ApplicationArea = All;
             }
-            field("Seminar Registration No."; "Seminar Registration No.")
+            field("Seminar Registration No."; Rec."Seminar Registration No.")
             {
                 ApplicationArea = All;
             }

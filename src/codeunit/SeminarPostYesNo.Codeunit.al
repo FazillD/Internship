@@ -15,7 +15,7 @@ codeunit 74030 "Seminar-Post (Yes/No)"
 
     local procedure Code()
     begin
-        if not Confirm(Text001, false) then
+        if not Confirm(Text001, true) then
             exit;
         SeminarPost.Run(SeminarRegHeader);
         Commit();
