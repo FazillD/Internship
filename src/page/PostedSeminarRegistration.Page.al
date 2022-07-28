@@ -161,13 +161,30 @@ page 73010 "Posted Seminar Registration"
             }
             action("&Charges")
             {
+                ApplicationArea = all;
                 Caption = 'Charges';
                 RunObject = page "Posted Seminar Charges";
                 RunPageLink = "Document No." = field("No.");
+            }
+        }
+        area(Navigation)
+        {
+            action(Navigate)
+            {
+                ApplicationArea = all;
+                Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
+                    Navigate.SetDoc("Posting Date", "No.");
+                    Navigate.RUN;
+                end;
             }
         }
     }
 
     var
         myInt: Integer;
+        Navigate: Page Navigate;
 }

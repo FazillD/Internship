@@ -92,8 +92,23 @@ page 71320 "Posted Seminar Reg. List"
                 ApplicationArea = All;
             }
         }
+        area(Navigation)
+        {
+            action(Navigate)
+            {
+                ApplicationArea = all;
+                Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
+                trigger OnAction()
+                begin
+                    Navigate.SetDoc("Posting Date", "No.");
+                    Navigate.RUN;
+                end;
+            }
+        }
     }
 
     var
-        myInt: Integer;
+        Navigate: Page Navigate;
 }

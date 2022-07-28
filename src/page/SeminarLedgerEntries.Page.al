@@ -112,20 +112,23 @@ page 71130 "Seminar Ledger Entries"
 
     actions
     {
-        area(Processing)
+        area(Navigation)
         {
-            action(ActionName)
+            action(Navigate)
             {
-                ApplicationArea = All;
-
+                ApplicationArea = all;
+                Image = Navigate;
+                Promoted = true;
+                PromotedCategory = Process;
                 trigger OnAction()
                 begin
-
+                    Navigate.SetDoc("Posting Date", "Document No.");
+                    Navigate.RUN;
                 end;
             }
         }
     }
 
     var
-        myInt: Integer;
+        Navigate: Page Navigate;
 }
