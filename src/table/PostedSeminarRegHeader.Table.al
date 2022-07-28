@@ -2,6 +2,8 @@ table 72400 "Posted Seminar Reg. Header"
 {
     DataClassification = ToBeClassified;
     Caption = 'Posted Seminar Reg. Header';
+    LookupPageId = "Posted Seminar Registration";
+    DrillDownPageId = "Posted Seminar Registration";
     fields
     {
         field(1; "No."; Code[20])

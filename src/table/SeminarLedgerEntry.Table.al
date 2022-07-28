@@ -1,6 +1,8 @@
 table 71130 "Seminar Ledger Entry"
 {
     DataClassification = CustomerContent;
+    LookupPageId = "Seminar Ledger Entries";
+    DrillDownPageId = "Seminar Ledger Entries";
 
     fields
     {
@@ -175,6 +177,8 @@ table 71130 "Seminar Ledger Entry"
         {
             Clustered = true;
         }
+        key(key2; "Document No.", "Posting Date")
+        { }
     }
 
     var
