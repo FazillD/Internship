@@ -94,6 +94,41 @@ table 70500 "Seminar"
             TableRelation = "No. Series";
             DataClassification = ToBeClassified;
         }
+        field(20; "Date Filter"; Date)
+        {
+            FieldClass = FlowFilter;
+        }
+        field(21; "Charge Type Filter"; Option)
+        {
+            OptionMembers = "Instructor","Room","Particiants","Charge";
+            OptionCaption = 'Instructor,Room,Particiants,Charge';
+            FieldClass = FlowFilter;
+        }
+        field(22; "Total Price"; Decimal)
+        {
+            FieldClass = FlowField;
+            AutoFormatType = 1;
+            Editable = false;
+            CalcFormula = sum("Seminar Ledger Entry"."Total Price" where("Seminar No." = field("No."),
+            "Posting Date" = field("Date Filter"), "Charge Type" = field("Charge Type Filter")));
+        }
+        field(23; "Total Price(Not Chargeable)"; Decimal)
+        {
+            FieldClass = FlowField;
+            Editable = false;
+            AutoFormatType = 1;
+            CalcFormula = sum("Seminar Ledger Entry"."Total Price" where("Seminar No." = field("No."),
+            "Posting Date" = field("Date Filter"), "Charge Type" = field("Charge Type Filter"),
+            Chargeable = const(false)));
+        }
+        field(24; "Total Price(Chargeable)"; Decimal)
+        {
+            FieldClass = FlowField;
+            Editable = false;
+            AutoFormatType = 1;
+            CalcFormula = sum("Seminar Ledger Entry"."Total Price" where("Seminar No." = field("No."),
+            "Posting Date" = field("Date Filter"), "Charge Type" = field("Charge Type Filter"), Chargeable = const(true)));
+        }
     }
 
     keys
