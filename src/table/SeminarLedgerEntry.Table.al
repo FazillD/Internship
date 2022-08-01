@@ -177,8 +177,10 @@ table 71130 "Seminar Ledger Entry"
         {
             Clustered = true;
         }
-        key(key2; "Document No.", "Posting Date")
-        { }
+        key(key2; "Document No.", "Posting Date", "Seminar No.", "Charge Type", "Chargeable")
+        {
+            SumIndexFields = "Total Price";
+        }
     }
 
     var

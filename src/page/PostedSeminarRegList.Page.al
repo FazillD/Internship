@@ -57,10 +57,12 @@ page 71320 "Posted Seminar Reg. List"
             }
             systempart(Links; Links)
             {
+                ApplicationArea = All;
 
             }
             systempart(Note; Notes)
             {
+                ApplicationArea = All;
 
             }
         }
