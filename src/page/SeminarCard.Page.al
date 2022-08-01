@@ -116,6 +116,7 @@ page 70700 "Seminar Card"
             }
 
         }
+
         area(Processing)
         {
             action("Co&mments")
@@ -128,6 +129,16 @@ page 70700 "Seminar Card"
                 begin
 
                 end;
+            }
+            group("Related Information Menu")
+            {
+                action("&Statistics")
+                {
+                    ApplicationArea = All;
+                    Image = Statistics;
+                    RunObject = page "Seminar Statistics";
+                    RunPageLink = "No." = field("No.");
+                }
             }
         }
     }

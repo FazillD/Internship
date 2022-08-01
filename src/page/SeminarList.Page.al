@@ -101,6 +101,15 @@ page 70800 "Seminar List"
 
                 end;
             }
+            group("Related Information Menu")
+            {
+                action("&Statistics")
+                {
+                    ApplicationArea = All;
+                    Image = Statistics;
+                    RunObject = page "Seminar Statistics";
+                }
+            }
         }
     }
 
