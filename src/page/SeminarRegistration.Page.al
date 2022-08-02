@@ -194,6 +194,14 @@ page 73000 "Seminar Registration"
                 ShortcutKey = F9;
                 RunObject = codeunit "Seminar-Post (Yes/No)";
             }
+            action("Print")
+            {
+                ApplicationArea = all;
+                Caption = 'Print';
+                Promoted = true;
+                Image = Print;
+                RunObject = report "Seminar Reg.-Participant List";
+            }
         }
     }
 
