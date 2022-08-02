@@ -13,8 +13,6 @@ report 67890 "Seminar Reg.-Participant List"
 
             DataItemTableView = sorting("No.");
             RequestFilterFields = "No.", "Seminar No.";
-            DataItemLinkReference = RegistrationLine;
-            DataItemLink = "No." = field("Document No.");
 
 
             column(No_; "No.")
@@ -45,36 +43,42 @@ report 67890 "Seminar Reg.-Participant List"
             {
                 IncludeCaption = true;
             }
+            dataitem(RegistrationLine; "Seminar Registration Line")
+            {
+                DataItemTableView = sorting("Document No.", "Line No.");
+                DataItemLinkReference = RegistrationHeader;
+                DataItemLink = "Document No." = field("No.");
+                column(Bill_to_Customer_No_; "Bill-to Customer No.")
+                {
+                    IncludeCaption = true;
+                }
+                column(Participant_Contact_No_; "Participant Contact No.")
+                {
+                    IncludeCaption = true;
+                }
+                column(Participant_Name; "Participant Name")
+                {
+                    IncludeCaption = true;
+                }
+            }
             trigger OnAfterGetRecord()
             begin
                 CALCFIELDS("Instructor Name");
             end;
         }
-        dataitem(RegistrationLine; "Seminar Registration Line")
-        {
-            DataItemTableView = sorting("Document No.", "Line No.");
-            DataItemLinkReference = RegistrationHeader;
-            DataItemLink = "Document No." = field("No.");
-            column(Bill_to_Customer_No_; "Bill-to Customer No.")
-            {
-                IncludeCaption = true;
-            }
-            column(Participant_Contact_No_; "Participant Contact No.")
-            {
-                IncludeCaption = true;
-            }
-            column(Participant_Name; "Participant Name")
-            {
-                IncludeCaption = true;
-            }
-        }
+
+
         dataitem(Number; Integer)
         {
             DataItemTableView = where(Number = const(1));
-            column(CompName; CompanyInformation.Name)
+            column(CompanyInformation_Name; CompanyInformation.Name)
             {
                 IncludeCaption = true;
             }
+            trigger OnPreDataItem()
+            begin
+                CompanyInformation.Get();
+            end;
         }
     }
 
@@ -85,14 +89,14 @@ report 67890 "Seminar Reg.-Participant List"
         {
             area(Content)
             {
-                /*group(GroupName)
+                group(GroupName)
                 {
-                    field(Name; SourceExpression)
+                    field(HideDetails; HideDetails)
                     {
                         ApplicationArea = All;
 
                     }
-                }*/
+                }
             }
         }
 
@@ -109,6 +113,8 @@ report 67890 "Seminar Reg.-Participant List"
         }
 
     }
+
+
     rendering
     {
         layout(RDLLayout)
@@ -117,10 +123,12 @@ report 67890 "Seminar Reg.-Participant List"
             LayoutFile = 'reportlayout\MyRDLReport.rdl';
         }
     }
+    labels
+    {
+        LabelName = 'Seminar Registration Header', Comment = 'Seminar Registration Header';
+    }
 
     var
-        myInt: Integer;
-        name: Label 'Seminar Registration Header';
-        caption: Label 'Seminar Registration Header';
+        HideDetails: Boolean;
         CompanyInformation: Record "Company Information";
 }

@@ -104,7 +104,7 @@ page 71320 "Posted Seminar Reg. List"
                 PromotedCategory = Process;
                 trigger OnAction()
                 begin
-                    Navigate.SetDoc("Posting Date", "No.");
+                    Navigate.SetDoc(Rec."Posting Date", Rec."No.");
                     Navigate.RUN;
                 end;
             }

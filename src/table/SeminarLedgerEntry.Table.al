@@ -181,6 +181,8 @@ table 71130 "Seminar Ledger Entry"
         {
             SumIndexFields = "Total Price";
         }
+        key(key3; "Bill-to Customer No.", "Participant Contact No.")
+        { }
     }
 
     var

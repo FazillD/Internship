@@ -165,6 +165,7 @@ table 72400 "Posted Seminar Reg. Header"
             DataClassification = ToBeClassified;
             TableRelation = "Source Code";
         }
+
     }
 
     keys

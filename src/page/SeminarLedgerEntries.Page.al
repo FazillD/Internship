@@ -122,7 +122,7 @@ page 71130 "Seminar Ledger Entries"
                 PromotedCategory = Process;
                 trigger OnAction()
                 begin
-                    Navigate.SetDoc("Posting Date", "Document No.");
+                    Navigate.SetDoc(Rec."Posting Date", Rec."Document No.");
                     Navigate.RUN;
                 end;
             }

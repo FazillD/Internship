@@ -1,7 +1,8 @@
 page 70600 "Seminer Setup"
 {
     PageType = Card;
-    UsageCategory = None;
+    UsageCategory = Administration;
+    ApplicationArea = All;
     SourceTable = "Seminar Setup";
     Caption = 'Seminar Setup';
     DeleteAllowed = false;
