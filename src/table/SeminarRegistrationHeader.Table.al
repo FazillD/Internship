@@ -59,6 +59,7 @@ table 74000 "Seminar Registration Header"
                     "Minimum Participants" := Seminar."Minimum Participants";
                     "Maximum Participants" := Seminar."Maximum Participants";
                 END;
+                CreateDim(DATABASE::Seminar, "Seminar No.", DATABASE::Resource, "Instructor Resource No.", DATABASE::Resource, "Room Resource No.");
             end;
         }
         field(4; "Seminar Name"; Text[50])
@@ -71,6 +72,12 @@ table 74000 "Seminar Registration Header"
         {
             Caption = 'Instructor Resource No.';
             TableRelation = Resource WHERE(Type = CONST(Person));
+
+            trigger OnValidate()
+            begin
+                CalcFields("Instructor Name");
+                CreateDim(DATABASE::Seminar, "Seminar No.", DATABASE::Resource, "Instructor Resource No.", DATABASE::Resource, "Room Resource No.");
+            end;
 
         }
         field(6; "Instructor Name"; Text[100])
@@ -150,6 +157,7 @@ table 74000 "Seminar Registration Header"
                         END;
                     END;
                 END;
+                CreateDim(DATABASE::Seminar, "Seminar No.", DATABASE::Resource, "Instructor Resource No.", DATABASE::Resource, "Room Resource No.");
             end;
         }
         field(14; "Room Name"; Text[30])
@@ -297,6 +305,30 @@ table 74000 "Seminar Registration Header"
         {
             Editable = false;
         }
+        field(51; "Shortcut Dimension 1 Code"; Code[20])
+        {
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(1));
+            trigger OnValidate()
+            begin
+                ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
+            end;
+        }
+        field(52; "Shortcut Dimension 2 Code"; Code[20])
+        {
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(2));
+            trigger OnValidate()
+            begin
+                ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
+            end;
+        }
+        field(480; "Dimension Set ID"; Integer)
+        {
+            TableRelation = "Dimension Set Entry" where("Dimension Set ID" = field("Dimension Set ID"));
+            trigger OnLookup()
+            begin
+                ShowDocDim;
+            end;
+        }
     }
 
     keys
@@ -326,6 +358,7 @@ table 74000 "Seminar Registration Header"
         Text004: TextConst ENU = 'This Seminar is for %1 participants. \The selected Room has a maximum of %2 participants \Do you want to change %3 for the Seminar from %4 to %5?';
         Text005: TextConst ENU = 'Should the new %1 be copied to all %2 that are not yet invoiced?';
         Text006: TextConst ENU = 'You cannot delete the Seminar Registration, because there is at least one %1.';
+        DimMgt: Codeunit DimensionManagement;
 
     trigger OnInsert()
     begin
@@ -395,5 +428,103 @@ table 74000 "Seminar Registration Header"
         "Document Date" := WORKDATE;
         SeminarSetup.GET;
         NoSeriesMgt.SetDefaultSeries("Posting No. Series", SeminarSetup."Posted Seminar Reg. No.");
+    end;
+
+    procedure SeminarRegLinesExist(): Boolean
+    begin
+        SeminarRegLine.RESET;
+        SeminarRegLine.SETRANGE("Document No.", "No.");
+        EXIT(SeminarRegLine.FINDFIRST);
+    end;
+
+    procedure CreateDim(Type1: Integer; No1: Code[20]; Type2: Integer; No2: Code[20]; Type3: Integer; No3: Code[20])
+    var
+        SourceCodeSetup: Record "Source Code Setup";
+        TableID: array[10] of Integer;
+        No: array[10] of Code[20];
+        OldDimSetID: Integer;
+    begin
+        SourceCodeSetup.GET;
+        TableID[1] := Type1;
+        No[1] := No1;
+        TableID[2] := Type2;
+        No[2] := No2;
+        TableID[3] := Type3;
+        No[3] := No3;
+        "Shortcut Dimension 1 Code" := '';
+        "Shortcut Dimension 2 Code" := '';
+        OldDimSetID := "Dimension Set ID";
+        "Dimension Set ID" :=
+         DimMgt.GetDefaultDimID(TableID, No,
+         SourceCodeSetup.Seminar,
+         "Shortcut Dimension 1 Code",
+         "Shortcut Dimension 2 Code", 0, 0);
+        IF (OldDimSetID <> "Dimension Set ID") AND
+         SeminarRegLinesExist
+        THEN BEGIN
+            MODIFY;
+            UpdateAllLineDim("Dimension Set ID", OldDimSetID);
+        END;
+    end;
+
+    procedure ValidateShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
+    var
+        OldDimSetID: Integer;
+    begin
+        OldDimSetID := "Dimension Set ID";
+        DimMgt.ValidateShortcutDimValues(
+         FieldNumber,
+         ShortcutDimCode,
+         "Dimension Set ID");
+        IF "No." <> '' THEN
+            MODIFY;
+        IF OldDimSetID <> "Dimension Set ID" THEN BEGIN
+            MODIFY;
+            IF SeminarRegLinesExist THEN
+                UpdateAllLineDim("Dimension Set ID", OldDimSetID);
+        END;
+    end;
+
+    procedure ShowDocDim()
+    var
+        OldDimSetID: Integer;
+    begin
+        OldDimSetID := "Dimension Set ID";
+        "Dimension Set ID" :=
+         DimMgt.EditDimensionSet(
+         "Dimension Set ID", "No.",
+         "Shortcut Dimension 1 Code",
+         "Shortcut Dimension 2 Code");
+        IF OldDimSetID <> "Dimension Set ID" THEN BEGIN
+            MODIFY;
+            IF SeminarRegLinesExist THEN
+                UpdateAllLineDim("Dimension Set ID", OldDimSetID);
+        END;
+    end;
+
+    procedure UpdateAllLineDim(NewParentDimSetID: Integer; OldParentDimSetID: Integer)
+    var
+        NewDimSetID: Integer;
+        Text009: TextConst ENU = 'You may have changed a dimension.\\Do you want to update the lines?';
+    begin
+        IF NewParentDimSetID = OldParentDimSetID THEN
+            EXIT;
+        IF NOT CONFIRM(Text009) THEN
+            EXIT;
+        SeminarRegLine.RESET;
+        SeminarRegLine.SETRANGE("Document No.", "No.");
+        SeminarRegLine.LOCKTABLE;
+        IF SeminarRegLine.FIND('-') THEN
+            REPEAT
+                NewDimSetID := DimMgt.GetDeltaDimSetID(SeminarRegLine."Dimension Set ID", NewParentDimSetID, OldParentDimSetID);
+                IF SeminarRegLine."Dimension Set ID" <> NewDimSetID THEN BEGIN
+                    SeminarRegLine."Dimension Set ID" := NewDimSetID;
+                    DimMgt.UpdateGlobalDimFromDimSetID(
+                    SeminarRegLine."Dimension Set ID",
+                    SeminarRegLine."Shortcut Dimension 1 Code",
+                    SeminarRegLine."Shortcut Dimension 2 Code");
+                    SeminarRegLine.MODIFY;
+                END;
+            UNTIL SeminarRegLine.NEXT = 0;
     end;
 }
