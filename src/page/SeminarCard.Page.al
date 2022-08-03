@@ -141,6 +141,16 @@ page 70700 "Seminar Card"
                 }
             }
         }
+        area(Navigation)
+        {
+            action("Dimension")
+            {
+                Image = Dimensions;
+                ShortcutKey = 'Shift+CTRL+D';
+                RunObject = page "Default Dimensions";
+                RunPageLink = "Table ID" = const(70700), "No." = field("No.");
+            }
+        }
     }
 
     var
