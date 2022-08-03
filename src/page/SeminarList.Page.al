@@ -62,6 +62,28 @@ page 70800 "Seminar List"
                     ApplicationArea = All;
                 }
             }
+            action("Dimension-Single")
+            {
+                Caption = 'Dimension-Single';
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
+                RunObject = page "Default Dimensions";
+                RunPageLink = "Table ID" = const(70700), "No." = field("No.");
+            }
+            action("Dimension-Multiple")
+            {
+                Image = DimensionSets;
+                Caption = 'Dimension-Multiple';
+                trigger OnAction()
+                var
+                    Seminar: Record Seminar;
+                    DefaultDimMultiple: Page "Default Dimensions-Multiple";
+                begin
+                    CurrPage.SETSELECTIONFILTER(Seminar);
+                    DefaultDimMultiple.SetMultiSeminar(Seminar);
+                    DefaultDimMultiple.RUNMODAL;
+                end;
+            }
             action("Ledger Entries")
             {
                 Caption = 'Ledger Entries';
@@ -109,6 +131,16 @@ page 70800 "Seminar List"
                     Image = Statistics;
                     RunObject = page "Seminar Statistics";
                 }
+            }
+        }
+        area(Navigation)
+        {
+            action("Dimension")
+            {
+                Image = Dimensions;
+                ShortcutKey = 'Shift+CTRL+D';
+                RunObject = page "Default Dimensions";
+                RunPageLink = "Table ID" = const(70700), "No." = field("No.");
             }
         }
     }
