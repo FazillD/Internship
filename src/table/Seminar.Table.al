@@ -129,6 +129,18 @@ table 70500 "Seminar"
             CalcFormula = sum("Seminar Ledger Entry"."Total Price" where("Seminar No." = field("No."),
             "Posting Date" = field("Date Filter"), "Charge Type" = field("Charge Type Filter"), Chargeable = const(true)));
         }
+        field(25; "Global Dimension 1 Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(1));
+            CaptionClass = '1,1,1';
+        }
+        field(26; "Global Dimension 2 Code"; Code[20])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(2));
+            CaptionClass = '1,1,2';
+        }
     }
 
     keys
@@ -149,6 +161,7 @@ table 70500 "Seminar"
         Seminar: Record Seminar;
         GenProdPostingGroup: Record "Gen. Product Posting Group";
         NoSeriesMgt: Codeunit NoSeriesManagement;
+        DimMgt: Codeunit DimensionManagement;
 
     trigger OnInsert()
     begin
@@ -157,6 +170,7 @@ table 70500 "Seminar"
             SeminarSetup.TESTFIELD("Seminar Nos.");
             NoSeriesMgt.InitSeries(SeminarSetup."Seminar Nos.", xRec."No. Series", 0D, "No.", "No. Series");
         END;
+        DimMgt.UpdateDefaultDim(DATABASE::Seminar, "No.", "Global Dimension 1 Code", "Global Dimension 2 Code");
     end;
 
     trigger OnModify()
@@ -170,6 +184,7 @@ table 70500 "Seminar"
         CommentLine.SETRANGE("Table Name", CommentLine."Table Name"::Seminar);
         CommentLine.SETRANGE("No.", "No.");
         CommentLine.DELETEALL;
+        DimMgt.DeleteDefaultDim(DATABASE::Seminar, "No.");
     end;
 
     trigger OnRename()
@@ -187,5 +202,12 @@ table 70500 "Seminar"
             Rec := Seminar;
             EXIT(TRUE);
         END;
+    end;
+
+    procedure ValidateShortcutDimCode(FieldNumber: Integer; var ShortcutDimCode: Code[20])
+    begin
+        DimMgt.ValidateDimValueCode(FieldNumber, ShortcutDimCode);
+        DimMgt.SaveDefaultDim(DATABASE::Customer, "No.", FieldNumber, ShortcutDimCode);
+        MODIFY;
     end;
 }
