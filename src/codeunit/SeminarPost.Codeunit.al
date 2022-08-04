@@ -12,6 +12,7 @@ codeunit 74021 "Seminar-Post"
         SeminarRegHeader.TESTFIELD("Instructor Resource No.");
         SeminarRegHeader.TESTFIELD("Room Resource No.");
         SeminarRegHeader.TESTFIELD(Status, SeminarRegHeader.Status::"Closed");
+        CheckDim();
         SeminarRegLine.RESET;
         SeminarRegLine.SETRANGE("Document No.", SeminarRegHeader."No.");
         IF SeminarRegLine.ISEMPTY THEN
@@ -166,6 +167,9 @@ codeunit 74021 "Seminar-Post"
         ResJnlLine."Total Cost" := ResJnlLine."Unit Cost" * ResJnlLine.Quantity;
         ResJnlLine."Seminar No." := SeminarRegHeader."Seminar No.";
         ResJnlLine."Seminar Registration No." := PstdSeminarRegHeader."No.";
+        ResJnlLine."Shortcut Dimension 1 Code" := SeminarRegHeader."Shortcut Dimension 1 Code";
+        ResJnlLine."Shortcut Dimension 2 Code" := SeminarRegHeader."Shortcut Dimension 2 Code";
+        ResJnlLine."Dimension Set ID" := SeminarRegHeader."Dimension Set ID";
         ResJnlPostLine.RunWithCheck(ResJnlLine);
         ResLedgEntry.FINDLAST;
         EXIT(ResLedgEntry."Entry No.");
@@ -188,6 +192,9 @@ codeunit 74021 "Seminar-Post"
         SeminarJnlLine."Source Code" := SourceCode;
         SeminarJnlLine."Reason Code" := SeminarRegHeader."Reason Code";
         SeminarJnlLine."Posting No. Series" := SeminarRegHeader."Posting No. Series";
+        SeminarJnlLine."Shortcut Dimension 1 Code" := SeminarRegHeader."Shortcut Dimension 1 Code";
+        SeminarJnlLine."Shortcut Dimension 2 Code" := SeminarRegHeader."Shortcut Dimension 2 Code";
+        SeminarJnlLine."Dimension Set ID" := SeminarRegHeader."Dimension Set ID";
         CASE ChargeType OF
             ChargeType::Instructor:
                 BEGIN
@@ -220,6 +227,7 @@ codeunit 74021 "Seminar-Post"
                     SeminarJnlLine.Quantity := 1;
                     SeminarJnlLine."Unit Price" := SeminarRegLine.Amount;
                     SeminarJnlLine."Total Price" := SeminarRegLine.Amount;
+                    SeminarJnlLine."Dimension Set ID" := SeminarRegLine."Dimension Set ID";
                 END;
             ChargeType::Charge:
                 BEGIN
@@ -246,4 +254,52 @@ codeunit 74021 "Seminar-Post"
         END;
     end;
 
+    local procedure CheckDim()
+    var
+        SeminarRegLine2: Record "Seminar Registration Line";
+    begin
+        SeminarRegLine2."Line No." := 0;
+        CheckDimValuePosting(SeminarRegLine2);
+        CheckDimComb(SeminarRegLine2);
+        SeminarRegLine2.SetRange("Document No.", SeminarRegHeader."No.");
+        if SeminarRegLine2.FindSet() then
+            repeat
+                CheckDimComb(SeminarRegLine2);
+                CheckDimValuePosting(SeminarRegLine2);
+            until SeminarRegLine2.Next() = 0;
+    end;
+
+    local procedure CheckDimComb(SeminarRegLine: Record "Seminar Registration Line")
+    begin
+        if SeminarRegLine."Line No." = 0 then
+            IF NOT DimMgt.CheckDimIDComb(SeminarRegHeader."Dimension Set ID") THEN
+                ERROR(Text005, SeminarRegHeader."No.", DimMgt.GetDimCombErr);
+        if SeminarRegLine."Line No." <> 0 then
+            IF NOT DimMgt.CheckDimIDComb(SeminarRegLine."Dimension Set ID") THEN
+                ERROR(Text006, SeminarRegHeader."No.", SeminarRegLine."Line No.", DimMgt.GetDimCombErr);
+    end;
+
+    local procedure CheckDimValuePosting(var SeminarRegLine2: Record "Seminar Registration Line")
+    var
+        TableIDArr: ARRAY[10] OF Integer;
+        NumberArr: ARRAY[10] OF Code[20];
+    begin
+        IF SeminarRegLine2."Line No." = 0 THEN BEGIN
+            TableIDArr[1] := DATABASE::Seminar;
+            NumberArr[1] := SeminarRegHeader."Seminar No.";
+            TableIDArr[2] := DATABASE::Resource;
+            NumberArr[2] := SeminarRegHeader."Instructor Resource No.";
+            TableIDArr[3] := DATABASE::Resource;
+            NumberArr[3] := SeminarRegHeader."Room Resource No.";
+            IF NOT DimMgt.CheckDimValuePosting(TableIDArr, NumberArr, SeminarRegHeader."Dimension Set ID")
+            THEN
+                ERROR(Text007, SeminarRegHeader."No.", DimMgt.GetDimValuePostingErr);
+        END ELSE BEGIN
+            TableIDArr[1] := DATABASE::Customer;
+            NumberArr[1] := SeminarRegLine2."Bill-to Customer No.";
+            IF NOT DimMgt.CheckDimValuePosting(TableIDArr, NumberArr, SeminarRegLine2."Dimension Set ID")
+            THEN
+                ERROR(Text008, SeminarRegHeader."No.", SeminarRegLine2."Line No.", DimMgt.GetDimValuePostingErr);
+        END;
+    end;
 }
