@@ -166,6 +166,17 @@ page 73010 "Posted Seminar Registration"
                 RunObject = page "Posted Seminar Charges";
                 RunPageLink = "Document No." = field("No.");
             }
+            action(Dimensions)
+            {
+                Caption = 'Dimensions';
+                ApplicationArea = All;
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
+                trigger OnAction()
+                begin
+                    ShowDimension();
+                end;
+            }
         }
         area(Navigation)
         {

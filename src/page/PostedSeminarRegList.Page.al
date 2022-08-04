@@ -93,6 +93,17 @@ page 71320 "Posted Seminar Reg. List"
                 Image = Cost;
                 ApplicationArea = All;
             }
+            action(Dimensions)
+            {
+                ApplicationArea = All;
+                Caption = 'Dimension';
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
+                trigger OnAction()
+                begin
+                    ShowDimension();
+                end;
+            }
         }
         area(Navigation)
         {

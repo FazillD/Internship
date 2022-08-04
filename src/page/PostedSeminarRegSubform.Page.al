@@ -70,13 +70,15 @@ page 74010 "Posted Seminar Reg. Subform"
     {
         area(Processing)
         {
-            action(ActionName)
+            action(Dimensions)
             {
                 ApplicationArea = All;
-
+                Caption = 'Dimensions';
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
                 trigger OnAction()
                 begin
-
+                    ShowDimension();
                 end;
             }
         }
