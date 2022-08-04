@@ -64,6 +64,7 @@ page 70800 "Seminar List"
             }
             action("Dimension-Single")
             {
+                ApplicationArea = all;
                 Caption = 'Dimension-Single';
                 Image = Dimensions;
                 ShortcutKey = 'Shift+Ctrl+D';
@@ -72,6 +73,7 @@ page 70800 "Seminar List"
             }
             action("Dimension-Multiple")
             {
+                ApplicationArea = all;
                 Image = DimensionSets;
                 Caption = 'Dimension-Multiple';
                 trigger OnAction()
