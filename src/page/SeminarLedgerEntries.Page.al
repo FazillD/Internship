@@ -90,6 +90,14 @@ page 71130 "Seminar Ledger Entries"
                 {
                     ApplicationArea = All;
                 }
+                field("Global Dimension 1 Code"; "Global Dimension 1 Code")
+                {
+                    ApplicationArea = all;
+                }
+                field("Global Dimension 2 Code"; "Global Dimension 2 Code")
+                {
+                    ApplicationArea = all;
+                }
                 field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
@@ -112,6 +120,7 @@ page 71130 "Seminar Ledger Entries"
 
     actions
     {
+
         area(Navigation)
         {
             action(Navigate)
@@ -124,6 +133,20 @@ page 71130 "Seminar Ledger Entries"
                 begin
                     Navigate.SetDoc(Rec."Posting Date", Rec."Document No.");
                     Navigate.RUN;
+                end;
+            }
+        }
+        area(Processing)
+        {
+            action(Dimensions)
+            {
+                ApplicationArea = all;
+                Caption = 'Dimensions';
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
+                trigger OnAction()
+                begin
+                    ShowDimension();
                 end;
             }
         }
