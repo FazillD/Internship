@@ -75,6 +75,9 @@ codeunit 71130 "Seminar Jnl.-Post Line"
         SeminarLedgerEntry."No. Series" := SeminarJnlLine."Posting No. Series";
         SeminarLedgerEntry."User ID" := USERID;
         SeminarLedgerEntry."Entry No." := NextEntryNo;
+        SeminarLedgerEntry."Global Dimension 1 Code" := SeminarJnlLine."Shortcut Dimension 1 Code";
+        SeminarLedgerEntry."Global Dimension 2 Code" := SeminarJnlLine."Shortcut Dimension 2 Code";
+        SeminarLedgerEntry."Dimension Set ID" := SeminarJnlLine."Dimension Set ID";
         SeminarLedgerEntry.INSERT;
         NextEntryNo := NextEntryNo + 1;
 
