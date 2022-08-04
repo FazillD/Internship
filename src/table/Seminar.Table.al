@@ -131,14 +131,12 @@ table 70500 "Seminar"
         }
         field(25; "Global Dimension 1 Code"; Code[20])
         {
-            DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(1));
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(1));
             CaptionClass = '1,1,1';
         }
         field(26; "Global Dimension 2 Code"; Code[20])
         {
-            DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(2));
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(2));
             CaptionClass = '1,1,2';
         }
     }
