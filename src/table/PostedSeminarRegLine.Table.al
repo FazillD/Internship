@@ -106,6 +106,30 @@ table 72500 "Posted Seminar Reg. Line"
             Editable = false;
 
         }
+        field(51; "Shortcut Dimension 1 Code"; Code[20])
+        {
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(1));
+            Caption = 'Shortcut Dimension 1 Code';
+            CaptionClass = '1,2,1';
+            DataClassification = ToBeClassified;
+        }
+        field(52; "Shortcut Dimension 2 Code"; Code[20])
+        {
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(2));
+            Caption = 'Shortcut Dimension 2 Code';
+            CaptionClass = '1,2,2';
+            DataClassification = ToBeClassified;
+        }
+        field(480; "Dimension Set ID"; Integer)
+        {
+            Caption = 'Dimension Set ID';
+            TableRelation = "Dimension Set Entry";
+            DataClassification = ToBeClassified;
+            trigger OnLookup()
+            begin
+                ShowDimension;
+            end;
+        }
     }
 
     keys
@@ -117,6 +141,12 @@ table 72500 "Posted Seminar Reg. Line"
     }
 
     var
+        DimMgt: Codeunit 408;
+
+    procedure ShowDimension()
+    begin
+        DimMgt.ShowDimensionSet("Dimension Set ID", StrSubstNo('%1 %2', TableCaption, "Document No.", "Line No."));
+    end;
 
 
     trigger OnInsert()
