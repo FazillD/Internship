@@ -307,7 +307,7 @@ table 74000 "Seminar Registration Header"
         }
         field(51; "Shortcut Dimension 1 Code"; Code[20])
         {
-            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(1));
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(1));
             trigger OnValidate()
             begin
                 ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
@@ -315,7 +315,7 @@ table 74000 "Seminar Registration Header"
         }
         field(52; "Shortcut Dimension 2 Code"; Code[20])
         {
-            TableRelation = "Dimension Value".Code where("Global Dimension No." = const(2));
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(2));
             trigger OnValidate()
             begin
                 ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
@@ -490,11 +490,7 @@ table 74000 "Seminar Registration Header"
         OldDimSetID: Integer;
     begin
         OldDimSetID := "Dimension Set ID";
-        "Dimension Set ID" :=
-         DimMgt.EditDimensionSet(
-         "Dimension Set ID", "No.",
-         "Shortcut Dimension 1 Code",
-         "Shortcut Dimension 2 Code");
+        "Dimension Set ID" := DimMgt.EditDimensionSet("Dimension Set ID", "No.", "Shortcut Dimension 1 Code", "Shortcut Dimension 2 Code");
         IF OldDimSetID <> "Dimension Set ID" THEN BEGIN
             MODIFY;
             IF SeminarRegLinesExist THEN
