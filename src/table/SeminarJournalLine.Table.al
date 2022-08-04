@@ -170,6 +170,26 @@ table 71100 "Seminar Journal Line"
             TableRelation = "No. Series";
             Caption = 'Posting No. Series';
         }
+        field(51; "Shortcut Dimension 1 Code"; Code[20])
+        {
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(1));
+            Caption = 'Shortcut Dimension 1 Code';
+            CaptionClass = '1,2,1';
+            DataClassification = ToBeClassified;
+        }
+        field(52; "Shortcut Dimension 2 Code"; Code[20])
+        {
+            TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(2));
+            Caption = 'Shortcut Dimension 2 Code';
+            CaptionClass = '1,2,2';
+            DataClassification = ToBeClassified;
+        }
+        field(480; "Dimension Set ID"; Integer)
+        {
+            TableRelation = "Dimension Set Entry";
+            Editable = false;
+            DataClassification = ToBeClassified;
+        }
     }
 
     keys

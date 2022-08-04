@@ -207,8 +207,9 @@ table 72300 "Seminar Registration Line"
         }
         field(51; "Shortcut Dimension 1 Code"; Code[20])
         {
+            Caption = 'Shortcut Dimension 1 Code';
             DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(1));
+            TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(1));
             trigger OnValidate()
             begin
                 ValidateShortcutDimCode(1, "Shortcut Dimension 1 Code");
@@ -216,8 +217,9 @@ table 72300 "Seminar Registration Line"
         }
         field(52; "Shortcut Dimension 2 Code"; Code[20])
         {
+            Caption = 'Shortcut Dimension 2 Code';
             DataClassification = ToBeClassified;
-            TableRelation = "Dimension Value".Code WHERE("Global Dimension No." = CONST(2));
+            TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(2));
             trigger OnValidate()
             begin
                 ValidateShortcutDimCode(2, "Shortcut Dimension 2 Code");
