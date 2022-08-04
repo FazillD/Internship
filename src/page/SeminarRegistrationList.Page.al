@@ -100,6 +100,16 @@ page 75000 "Seminar Registration List"
                 ShortcutKey = F9;
                 RunObject = codeunit "Seminar-Post (Yes/No)";
             }
+            action("Dimension")
+            {
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    ShowDocDim;
+                end;
+            }
         }
     }
 

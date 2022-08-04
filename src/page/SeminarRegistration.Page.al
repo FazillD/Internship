@@ -202,6 +202,17 @@ page 73000 "Seminar Registration"
                 Image = Print;
                 RunObject = report "Seminar Reg.-Participant List";
             }
+            action("Dimension")
+            {
+                Image = Dimensions;
+                ShortcutKey = 'Shift+Ctrl+D';
+                ApplicationArea = All;
+                trigger OnAction()
+                begin
+                    ShowDocDim;
+                    CurrPage.SAVERECORD;
+                end;
+            }
         }
     }
 
