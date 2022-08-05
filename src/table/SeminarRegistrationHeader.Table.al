@@ -323,7 +323,7 @@ table 74000 "Seminar Registration Header"
         }
         field(480; "Dimension Set ID"; Integer)
         {
-            TableRelation = "Dimension Set Entry" where("Dimension Set ID" = field("Dimension Set ID"));
+            TableRelation = "Dimension Set Entry";
             trigger OnLookup()
             begin
                 ShowDocDim;

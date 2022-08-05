@@ -228,7 +228,8 @@ table 72300 "Seminar Registration Line"
         field(480; "Dimension Set ID"; Integer)
         {
             DataClassification = ToBeClassified;
-            TableRelation = "Dimension Set Entry" where("Dimension Set ID" = field("Dimension Set ID"));
+            TableRelation = "Dimension Set Entry";
+
             trigger OnLookup()
             begin
                 ShowDimensions;

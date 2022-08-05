@@ -1,6 +1,7 @@
 table 71130 "Seminar Ledger Entry"
 {
-    DataClassification = CustomerContent;
+    DataClassification = ToBeClassified;
+    Caption = 'Seminar Ledger Entry';
     LookupPageId = "Seminar Ledger Entries";
     DrillDownPageId = "Seminar Ledger Entries";
 

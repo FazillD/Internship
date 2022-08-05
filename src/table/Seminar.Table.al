@@ -133,11 +133,19 @@ table 70500 "Seminar"
         {
             TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(1));
             CaptionClass = '1,1,1';
+            trigger OnValidate()
+            begin
+                ValidateShortcutDimCode(1, "Global Dimension 1 Code");
+            end;
         }
         field(26; "Global Dimension 2 Code"; Code[20])
         {
             TableRelation = "Dimension Value"."Code" where("Global Dimension No." = const(2));
             CaptionClass = '1,1,2';
+            trigger OnValidate()
+            begin
+                ValidateShortcutDimCode(2, "Global Dimension 2 Code");
+            end;
         }
     }
 

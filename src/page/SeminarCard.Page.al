@@ -145,10 +145,11 @@ page 70700 "Seminar Card"
         {
             action("Dimension")
             {
+                ApplicationArea = all;
                 Image = Dimensions;
                 ShortcutKey = 'Shift+CTRL+D';
                 RunObject = page "Default Dimensions";
-                RunPageLink = "Table ID" = const(70700), "No." = field("No.");
+                RunPageLink = "Table ID" = const(70500), "No." = field("No.");
             }
         }
     }

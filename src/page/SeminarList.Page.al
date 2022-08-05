@@ -62,30 +62,34 @@ page 70800 "Seminar List"
                     ApplicationArea = All;
                 }
             }
-            action("Dimension-Single")
+            group(Dimensions)
             {
-                ApplicationArea = all;
-                Caption = 'Dimension-Single';
-                Image = Dimensions;
-                ShortcutKey = 'Shift+Ctrl+D';
-                RunObject = page "Default Dimensions";
-                RunPageLink = "Table ID" = const(70700), "No." = field("No.");
+                action("Dimension-Single")
+                {
+                    ApplicationArea = all;
+                    Caption = 'Dimension-Single';
+                    Image = Dimensions;
+                    ShortcutKey = 'Shift+Ctrl+D';
+                    RunObject = page "Default Dimensions";
+                    RunPageLink = "Table ID" = const(70500), "No." = field("No.");
+                }
+                action("Dimension-Multiple")
+                {
+                    ApplicationArea = all;
+                    Image = DimensionSets;
+                    Caption = 'Dimension-Multiple';
+                    trigger OnAction()
+                    var
+                        Seminar: Record Seminar;
+                        DefaultDimMultiple: Page "Default Dimensions-Multiple";
+                    begin
+                        CurrPage.SETSELECTIONFILTER(Seminar);
+                        DefaultDimMultiple.SetMultiSeminar(Seminar);
+                        DefaultDimMultiple.RUNMODAL;
+                    end;
+                }
             }
-            action("Dimension-Multiple")
-            {
-                ApplicationArea = all;
-                Image = DimensionSets;
-                Caption = 'Dimension-Multiple';
-                trigger OnAction()
-                var
-                    Seminar: Record Seminar;
-                    DefaultDimMultiple: Page "Default Dimensions-Multiple";
-                begin
-                    CurrPage.SETSELECTIONFILTER(Seminar);
-                    DefaultDimMultiple.SetMultiSeminar(Seminar);
-                    DefaultDimMultiple.RUNMODAL;
-                end;
-            }
+
             action("Ledger Entries")
             {
                 Caption = 'Ledger Entries';
@@ -135,16 +139,16 @@ page 70800 "Seminar List"
                 }
             }
         }
-        area(Navigation)
-        {
-            action("Dimension")
-            {
-                Image = Dimensions;
-                ShortcutKey = 'Shift+CTRL+D';
-                RunObject = page "Default Dimensions";
-                RunPageLink = "Table ID" = const(70700), "No." = field("No.");
-            }
-        }
+        // area(Navigation)
+        // {
+        //     action("Dimension")
+        //     {
+        //         Image = Dimensions;
+        //         ShortcutKey = 'Shift+CTRL+D';
+        //         RunObject = page "Default Dimensions";
+        //         RunPageLink = "Table ID" = const(7000), "No." = field("No.");
+        //     }
+        // }
     }
 
     var
