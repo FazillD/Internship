@@ -68,7 +68,7 @@ page 74120 "My Seminars"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
-        GetSeminar();
+        Clear(Seminar);
     end;
 
     var
