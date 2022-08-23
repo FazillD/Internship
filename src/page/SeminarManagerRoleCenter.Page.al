@@ -10,32 +10,30 @@ page 74100 "Seminar Manager Role Center"
 
         area(RoleCenter)
         {
-            group(Group1)
+
+            part("Page Part"; "Seminar Manager Activities")
             {
-                part("Page Part"; "Seminar Manager Activities")
-                {
-                    ApplicationArea = All;
-                }
-                systempart("System Part"; Outlook)
-                {
-                    ApplicationArea = Basic, Suite;
-                }
+                ApplicationArea = All;
             }
-            group(Group2)
+            systempart("System Part"; Outlook)
             {
-                part(Page1; "My Seminars")
-                {
-                    ApplicationArea = All;
-                }
-                part(Page2; "My Customers")
-                {
-                    ApplicationArea = All;
-                }
-                systempart(MyNotes; MyNotes)
-                {
-                    ApplicationArea = Basic, Suite;
-                }
+                ApplicationArea = Basic, Suite;
             }
+
+
+            part(Page1; "My Seminars")
+            {
+                ApplicationArea = All;
+            }
+            part(Page2; "My Customers")
+            {
+                ApplicationArea = Basic, Suite;
+            }
+            systempart(MyNotes; MyNotes)
+            {
+                ApplicationArea = Basic, Suite;
+            }
+
         }
     }
 
