@@ -27,7 +27,7 @@ page 74100 "Seminar Manager Role Center"
             }
             part(Page2; "My Customers")
             {
-                ApplicationArea = Basic, Suite;
+                ApplicationArea = All;
             }
             systempart(MyNotes; MyNotes)
             {
