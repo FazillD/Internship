@@ -9,7 +9,7 @@ page 74120 "My Seminars"
     {
         area(Content)
         {
-            group(GroupName)
+            repeater(GroupName)
             {
                 field("Seminar No."; Rec."Seminar No.")
                 {
