@@ -19,6 +19,7 @@ page 74000 "Seminar Registration Subform"
                     trigger OnValidate()
                     begin
                         ShowShortcutDimCode(ShortcutDimCode);
+                        SetDimensionsVisibility();
                     end;
 
                 }
@@ -81,14 +82,17 @@ page 74000 "Seminar Registration Subform"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the code for Shortcut Dimension 1, which is one of two global dimension codes that you set up in the General Ledger Setup window.';
+                    Visible = Dimvisible1;
                 }
                 field("Shortcut Dimension 2 Code"; "Shortcut Dimension 2 Code")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Specifies the code for Shortcut Dimension 2, which is one of two global dimension codes that you set up in the General Ledger Setup window.';
+                    Visible = Dimvisible2;
                 }
                 field(ShortcutDimCode3; ShortcutDimCode[3])
                 {
+                    Visible = Dimvisible3;
                     ApplicationArea = Dimensions;
                     CaptionClass = '1,2,3';
                     TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(3),
@@ -102,6 +106,7 @@ page 74000 "Seminar Registration Subform"
                 }
                 field(ShortcutDimCode4; ShortcutDimCode[4])
                 {
+                    Visible = Dimvisible4;
                     ApplicationArea = Dimensions;
                     CaptionClass = '1,2,4';
                     TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(4),
@@ -115,6 +120,7 @@ page 74000 "Seminar Registration Subform"
                 }
                 field(ShortcutDimCode5; ShortcutDimCode[5])
                 {
+                    Visible = Dimvisible5;
                     ApplicationArea = Dimensions;
                     CaptionClass = '1,2,5';
                     TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(5),
@@ -128,6 +134,7 @@ page 74000 "Seminar Registration Subform"
                 }
                 field(ShortcutDimCode6; ShortcutDimCode[6])
                 {
+                    Visible = Dimvisible6;
                     ApplicationArea = Dimensions;
                     CaptionClass = '1,2,6';
                     TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(6),
@@ -141,6 +148,7 @@ page 74000 "Seminar Registration Subform"
                 }
                 field(ShortcutDimCode7; ShortcutDimCode[7])
                 {
+                    Visible = Dimvisible7;
                     ApplicationArea = Dimensions;
                     CaptionClass = '1,2,7';
                     TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(7),
@@ -154,6 +162,7 @@ page 74000 "Seminar Registration Subform"
                 }
                 field(ShortcutDimCode8; ShortcutDimCode[8])
                 {
+                    Visible = Dimvisible8;
                     ApplicationArea = Dimensions;
                     CaptionClass = '1,2,8';
                     TableRelation = "Dimension Value"."Code" WHERE("Global Dimension No." = CONST(8),
@@ -202,6 +211,11 @@ page 74000 "Seminar Registration Subform"
         ShowShortcutDimCode(ShortcutDimCode);
     end;
 
+    trigger OnOpenPage()
+    begin
+        SetDimensionsVisibility();
+    end;
+
     trigger OnNewRecord(BelowxRec: Boolean)
     begin
         CLEAR(ShortcutDimCode);
@@ -209,4 +223,34 @@ page 74000 "Seminar Registration Subform"
 
     var
         ShortcutDimCode: array[8] of Code[20];
+        Dimvisible1: Boolean;
+        Dimvisible2: Boolean;
+        Dimvisible3: Boolean;
+        Dimvisible4: Boolean;
+        Dimvisible5: Boolean;
+        Dimvisible6: Boolean;
+
+        Dimvisible7: Boolean;
+        Dimvisible8: Boolean;
+
+    local procedure SetDimensionsVisibility()
+    var
+        DimMgt: Codeunit DimensionManagement;
+    begin
+        DimVisible1 := false;
+        DimVisible2 := false;
+        DimVisible3 := false;
+        DimVisible4 := false;
+        DimVisible5 := false;
+        DimVisible6 := false;
+        DimVisible7 := false;
+        DimVisible8 := false;
+
+        DimMgt.UseShortcutDims(
+          DimVisible1, DimVisible2, DimVisible3, DimVisible4, DimVisible5, DimVisible6, DimVisible7, DimVisible8);
+
+        Clear(DimMgt);
+
+    end;
+
 }
